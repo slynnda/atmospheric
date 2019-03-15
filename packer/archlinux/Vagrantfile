@@ -1,0 +1,15 @@
+Vagrant.configure("2") do |config|
+
+  config.package.name = "archlinux"
+
+  config.vm.box = "archlinux"
+
+  config.vm.provision :shell, path: "vagrant/provisioners/install-packages.sh"
+
+  config.vm.provider :virtualbox do |vb|
+    
+    vb.gui = true
+
+  end
+
+end
