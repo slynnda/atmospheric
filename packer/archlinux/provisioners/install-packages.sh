@@ -37,4 +37,10 @@ yay -Sy --noconfirm --gitclone git \
                                libpam-google-authenticator \
                                yubico-pam \
                                yubikey-manager \
-                               yubikey-personalization
+                               yubikey-personalization \
+                               keepassxc \
+                               insync \
+                               aws-cli \
+                               python \
+                               python-pip \
+                               keepassxc
