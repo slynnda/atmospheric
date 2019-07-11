@@ -28,6 +28,7 @@ sudo reflector --verbose \
 # Install desired system packages
 yay -Sy --noconfirm --gitclone git \
                                base-devel \
+                               salt \
                                vim \
                                neovim \
                                keybase \
@@ -43,4 +44,8 @@ yay -Sy --noconfirm --gitclone git \
                                aws-cli \
                                python \
                                python-pip \
-                               keepassxc
+                               keepassxc \
+                               ccid \
+                               opensc \
+                               pcsc-tools \
+                               tmux
