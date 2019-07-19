@@ -4,9 +4,13 @@
 set -eu
 
 if [[ $PACKER_BUILDER_TYPE == "qemu" ]]; then
-	DISK='/dev/vda'
+	DISK_PREFIX='dev'
+	PARTITION_NAME='vda'
+	PARTITION_NUMBER='1'
 else
-	DISK='/dev/sda'
+	DISK_PREFIX='dev'
+	PARTITION_NAME='sda'
+	PARTITION_NUMBER='1'
 fi
 
 FQDN='vagrant-arch.vagrantup.com'
@@ -16,7 +20,7 @@ PASSWORD=$(/usr/bin/openssl passwd -crypt 'vagrant')
 TIMEZONE='UTC'
 
 CONFIG_SCRIPT='/usr/local/bin/arch-config.sh'
-ROOT_PARTITION="${DISK}1"
+ROOT_PARTITION="/${DISK_PREFIX}/${PARTITION_NAME}${PARTITION_NUMBER}"
 TARGET_DIR='/mnt'
 COUNTRY=${COUNTRY:-US}
 MIRRORLIST="https://www.archlinux.org/mirrorlist/?country=${COUNTRY}&protocol=http&protocol=https&ip_version=4&use_mirror_status=on"
@@ -24,18 +28,18 @@ MIRRORLIST="https://www.archlinux.org/mirrorlist/?country=${COUNTRY}&protocol=ht
 echo "==> Setting local mirror"
 curl -s "$MIRRORLIST" |  sed 's/^#Server/Server/' > /etc/pacman.d/mirrorlist
 
-echo "==> Clearing partition table on ${DISK}"
-/usr/bin/sgdisk --zap ${DISK}
+echo "==> Clearing partition table on /${DISK_PREFIX}/${PARTITION_NAME}"
+/usr/bin/sgdisk --zap /${DISK_PREFIX}/${PARTITION_NAME}
 
-echo "==> Destroying magic strings and signatures on ${DISK}"
-/usr/bin/dd if=/dev/zero of=${DISK} bs=512 count=2048
-/usr/bin/wipefs --all ${DISK}
+echo "==> Destroying magic strings and signatures on /${DISK_PREFIX}/${PARTITION_NAME}"
+/usr/bin/dd if=/dev/zero of=/${DISK_PREFIX}/${PARTITION_NAME} bs=512 count=2048
+/usr/bin/wipefs --all /${DISK_PREFIX}/${PARTITION_NAME}
 
-echo "==> Creating /root partition on ${DISK}"
-/usr/bin/sgdisk --new=1:0:0 ${DISK}
+echo "==> Creating /root partition on /${DISK_PREFIX}/${PARTITION_NAME}"
+/usr/bin/sgdisk --new=1:0:0 /${DISK_PREFIX}/${PARTITION_NAME}
 
-echo "==> Setting ${DISK} bootable"
-/usr/bin/sgdisk ${DISK} --attributes=1:set:2
+echo "==> Setting /${DISK_PREFIX}/${PARTITION_NAME} bootable"
+/usr/bin/sgdisk /${DISK_PREFIX}/${PARTITION_NAME} --attributes=1:set:2
 
 echo '==> Creating /root filesystem (ext4)'
 /usr/bin/mkfs.ext4 -O ^64bit -F -m 0 -q -L root ${ROOT_PARTITION}
@@ -45,10 +49,11 @@ echo "==> Mounting ${ROOT_PARTITION} to ${TARGET_DIR}"
 
 echo '==> Bootstrapping the base installation'
 /usr/bin/pacstrap ${TARGET_DIR} base base-devel
-/usr/bin/arch-chroot ${TARGET_DIR} pacman -S --noconfirm gptfdisk openssh syslinux
+/usr/bin/arch-chroot ${TARGET_DIR} pacman -S --noconfirm gptfdisk openssh syslinux apparmor
 /usr/bin/arch-chroot ${TARGET_DIR} syslinux-install_update -i -a -m
 /usr/bin/sed -i "s|sda3|${ROOT_PARTITION##/dev/}|" "${TARGET_DIR}/boot/syslinux/syslinux.cfg"
 /usr/bin/sed -i 's/TIMEOUT 50/TIMEOUT 10/' "${TARGET_DIR}/boot/syslinux/syslinux.cfg"
+/usr/bin/sed -i "s/APPEND root=\/${DISK_PREFIX}\/${PARTITION_NAME}${PARTITION_NUMBER} rw/APPEND root=\/${DISK_PREFIX}\/${PARTITION_NAME}${PARTITION_NUMBER} rw apparmor=1 security=apparmor/" "${TARGET_DIR}/boot/syslinux/syslinux.cfg"
 
 echo '==> Generating the filesystem table'
 /usr/bin/genfstab -p ${TARGET_DIR} >> "${TARGET_DIR}/etc/fstab"
