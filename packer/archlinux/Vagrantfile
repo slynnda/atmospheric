@@ -10,8 +10,10 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "arch"
 
   $install_packages = "/bin/bash --login /vagrant/provisioners/install-packages.sh"
+  $configure_shell = "/bin/bash --login /vagrant/provisioners/configure-shell.sh"
 
   config.vm.provision :shell, privileged: false, inline: $install_packages
+  config.vm.provision :shell, privileged: true, inline: $configure_shell
 
   config.vm.provider :virtualbox do |vb|
     
