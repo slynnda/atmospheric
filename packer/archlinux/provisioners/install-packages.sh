@@ -3,6 +3,7 @@
 # Assert ownership of home directory and all subtrees:
 sudo chown -R vagrant ${HOME}
 
+# Install git first so that we can build AUR packages from source:
 sudo pacman -Syu --noconfirm git
 
 # Install yay: https://aur.archlinux.org/yay.git
@@ -19,11 +20,11 @@ yay
 # Install reflector and optimize mirror list:
 yay -Sy --noconfirm --gitclone reflector
 sudo reflector --verbose \
-          --latest 10 \
-          --sort rate \
-          --protocol https \
-          --country 'United States' \
-          --save /etc/pacman.d/mirrorlist
+               --latest 10 \
+               --sort rate \
+               --protocol https \
+               --country 'United States' \
+               --save /etc/pacman.d/mirrorlist
 
 # Install desired system packages
 yay -Sy --noconfirm --gitclone git \
@@ -48,4 +49,5 @@ yay -Sy --noconfirm --gitclone git \
                                ccid \
                                opensc \
                                pcsc-tools \
-                               tmux
+                               tmux \
+                               snapd
