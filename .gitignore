@@ -1,1 +1,5 @@
-run.sh
+packer_cache
+output*
+.vagrant
+.swp
+manifest.json
