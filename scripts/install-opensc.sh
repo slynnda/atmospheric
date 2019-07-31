@@ -6,6 +6,6 @@
                                opensc \
                                pcsc-tools
 
-cat /tmp/opensc.conf > /etc/opensc.conf
+cat /tmp/etc/opensc.conf > /etc/opensc.conf
 
 /usr/bin/systemctl enable pcscd.service

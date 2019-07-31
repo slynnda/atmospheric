@@ -34,7 +34,6 @@ yay -Sy --noconfirm --gitclone git \
                                neovim \
                                keybase \
                                fish \
-                               neovim \
                                qrencode \
                                libpam-google-authenticator \
                                yubico-pam \
@@ -50,4 +49,5 @@ yay -Sy --noconfirm --gitclone git \
                                opensc \
                                pcsc-tools \
                                tmux \
-                               snapd
+                               snapd \
+                               terminator
