@@ -3,3 +3,4 @@ output*
 .vagrant
 .swp
 manifest.json
+.venv
