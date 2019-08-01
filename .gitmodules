@@ -1,0 +1,4 @@
+[submodule ".salt-bootstrap"]
+	path = .salt-bootstrap
+	url = git@github.com:saltstack/salt-bootstrap.git
+	branch = stable
