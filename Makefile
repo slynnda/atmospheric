@@ -12,3 +12,9 @@ vagrant-up:
 
 vagrant-ssh:
 	vagrant ssh
+
+git-submodule-init:
+	git submodule init
+
+git-submodule-update:
+	git submodule update --remote
