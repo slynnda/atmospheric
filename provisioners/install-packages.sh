@@ -26,10 +26,8 @@ sudo reflector --verbose \
                --country 'United States' \
                --save /etc/pacman.d/mirrorlist
 
-# Install desired system packages
-yay -Sy --noconfirm --gitclone git \
-                               base-devel \
-                               salt \
+# Install desired user packages
+yay -Sy --noconfirm --gitclone base-devel\
                                vim \
                                neovim \
                                keybase \
@@ -45,9 +43,6 @@ yay -Sy --noconfirm --gitclone git \
                                python \
                                python-pip \
                                keepassxc \
-                               ccid \
-                               opensc \
-                               pcsc-tools \
                                tmux \
-                               snapd \
-                               terminator
+                               xorg \
+                               i3
