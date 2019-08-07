@@ -1,4 +1,4 @@
-FROM base/archlinux
+FROM archlinux/base
 
 RUN pacman -Syy git
 RUN pacman -Syy ssh
