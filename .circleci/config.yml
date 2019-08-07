@@ -4,9 +4,5 @@ jobs:
     docker:
       - image: base/archlinux
     steps:
-      - run:
-        name: Greeting
-        command: echo Hello, world.
-      - run:
-        name: Print the Current Time
-        command: date
+      - checkout
+      -run: echo "A first hello"
