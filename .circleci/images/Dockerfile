@@ -1,7 +1,7 @@
 FROM archlinux/base
 
-RUN pacman -Syy git
-RUN pacman -Syy ssh
-RUN pacman -Syy tar
-RUN pacman -Syy gzip
-RUN pacman -Syy ca-certificates
+RUN pacman --noconfirm -Syy git \
+                            ssh \
+                            tar \
+                            gzip \
+                            ca-certificates
