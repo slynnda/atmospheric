@@ -7,4 +7,5 @@ jobs:
       - checkout
       - run: sudo apt-get install -y vagrant
       - run: sudo apt-get install -y packer
+      - run: sudo apt-get install -y make
       - run: echo "A first hello"
