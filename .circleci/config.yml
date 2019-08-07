@@ -10,3 +10,4 @@ jobs:
       - run: sudo apt-get install -y make
       - run: echo "A first hello"
       - run: make packer-validate
+      - run: make packer-build
