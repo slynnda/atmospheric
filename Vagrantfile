@@ -5,9 +5,9 @@ PASSWORD = "foo"
 
 Vagrant.configure("2") do |config|
 
-  config.package.name = "archlinux"
-  config.vm.box = "archlinux"
-  config.vm.hostname = "arch"
+  config.package.name = "atmospheric"
+  config.vm.box = "atmospheric"
+  config.vm.hostname = "atmos"
 
   $install_packages = "/bin/bash --login /vagrant/provisioners/install-packages.sh"
   $configure_shell = "/bin/bash --login /vagrant/provisioners/configure-shell.sh"
@@ -17,7 +17,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provider :virtualbox do |vb|
     
-    vb.name = "arch"
+    vb.name = "atmospheric"
     vb.gui = false
     vb.customize ["modifyvm", :id, "--memory", "4096"]
     vb.customize ["modifyvm", :id, "--cpus", "4"]

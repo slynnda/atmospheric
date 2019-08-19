@@ -44,5 +44,7 @@ yay -Sy --noconfirm --gitclone base-devel\
                                python-pip \
                                keepassxc \
                                tmux \
-                               xorg \
-                               i3
+                               xorg-xinit \
+                               i3 \
+                               neomutt \
+                               slack-term
