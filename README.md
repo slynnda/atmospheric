@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/slynnda/atmospheric/tree/master.svg?style=svg)](https://circleci.com/gh/slynnda/atmospheric/tree/master)
+
 ### Usage
 
 The following commands are available:

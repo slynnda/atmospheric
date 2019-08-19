@@ -1,0 +1,13 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7.4
+    steps:
+      - checkout
+      - run: sudo apt-get install -y vagrant
+      - run: sudo apt-get install -y packer
+      - run: sudo apt-get install -y make
+      - run: echo "A first hello"
+      - run: make packer-validate
+      - run: make packer-build
