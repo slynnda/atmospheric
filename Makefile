@@ -4,10 +4,11 @@ packer = $(shell command -v packer)
 vagrant = $(shell command -v vagrant)
 git = $(shell command -v git)
 
+build.source.dir ?= ${git.toplevel}
 build.target.path ?= ${git.toplevel}
 
 packer-validate:
-	${packer} validate ${git.toplevel}/packer.json
+	${packer} validate ${build.source.dir}/packer.json
 
 packer-build:
 	${packer} build -color=true -force ${build.target.path}/packer.json
