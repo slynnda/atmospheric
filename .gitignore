@@ -4,3 +4,4 @@ output*
 .swp
 manifest.json
 .venv
+pkg
