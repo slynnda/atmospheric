@@ -4,9 +4,9 @@ vagrant ?= $(shell command -v vagrant || echo "vagrant must be installed locally
 
 git.toplevel = $(shell git rev-parse --show-toplevel)
 
-build.src.dir ?= ${git.toplevel}
-build.pkg.dir ?= ${git.toplevel}/pkg
-build.bin.dir ?= ${git.toplevel}/bin
+build.src.dir ?= ${git.toplevel}/.build/src
+build.pkg.dir ?= ${git.toplevel}/.build/pkg
+build.bin.dir ?= ${git.toplevel}/.build/bin
 
 vagrant.box.name ?= atmospheric
 vagrant.box.filename ?= ${vagrant.box.name}.box
